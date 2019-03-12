@@ -210,32 +210,6 @@ public class PluginClassLoader extends URLClassLoader {
     }
 
     @Override
-    public InputStream getResourceAsStream(final String resourceName) {
-        final boolean childFirst = isParentFirstPath(resourceName);
-
-        if (childFirst) {
-            final InputStream childInputStream = super.getResourceAsStream(resourceName);
-            if (childInputStream != null) {
-                return childInputStream;
-            }
-        }
-
-        final InputStream parentInputStream = getParent().getResourceAsStream(resourceName);
-        if (parentInputStream != null) {
-            return parentInputStream;
-        }
-
-        if (!childFirst) {
-            final InputStream childInputStream = super.getResourceAsStream(resourceName);
-            if (childInputStream != null) {
-                return childInputStream;
-            }
-        }
-
-        return null;
-    }
-
-    @Override
     public Enumeration<URL> getResources(String name) throws IOException {
         List<Iterator<URL>> resources = new ArrayList<>();
 
